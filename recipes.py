@@ -9,10 +9,10 @@ recipes = {
 		"+10 Bartali Sailboat: Old Plating": 1,
 		"+10 Bartali Sailboat: Old Cannon": 1,
 		"+10 Bartali Sailboat: Old Sail": 1,
-		"Standardized Timber Square": 800,
-		"Steel": 600,
-		"Pine Plywood": 1500,
-		"Flax Fabric": 300,
+		"Standardized Timber Square": 350,
+		"Steel": 250,
+		"Pine Plywood": 70,
+		"Flax Fabric": 100,
 		"Hard Pillar": 100
 	},
 	"Improved Epheria Sailboat": {
@@ -74,10 +74,10 @@ recipes = {
 		"+10 Bartali Sailboat: Old Plating": 1,
 		"+10 Bartali Sailboat: Old Cannon": 1,
 		"+10 Bartali Sailboat: Old Sail": 1,
-		"Standardized Timber Square": 1000,
-		"Jade Coral Ingot": 800,
-		"Pine Coated Plywood": 1000,
-		"Enhanced Flax Fabric": 450,
+		"Standardized Timber Square": 450,
+		"Jade Coral Ingot": 350,
+		"Pine Coated Plywood": 750,
+		"Enhanced Flax Fabric": 200,
 		"Hard Pillar": 100
 
 	},
