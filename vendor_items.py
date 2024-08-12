@@ -1,6 +1,8 @@
 # a dictionary of item notes
 
 items = {
+	"Gold Bar 1,000G": ["Buy from Storage Keeper"],
+
 	"Bartali Sailboat": ["Buy from Proix. 10 mil"],
 	"Epheria Sailboat": ["Buy on CM or craft from Bartali Sailboat", "Improved Sailboat works for Caravel"],
 	"Epheria Frigate": ["Buy on CM or craft from Bartali Sailboat", "Improved Frigate works for Galleass"],
