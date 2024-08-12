@@ -51,8 +51,8 @@ def gen_info():
 			"Turn": "115%",
 			"Brake": "115%",
 			"Inventory": "40 slots",
-			"Cabins": "50",
-			"Cannon Reload": "15s"
+			"Cabins": "100",
+			"Cannon Reload": "13s"
 		},
 		"Carrack (Balance)": {
 			"HP": "1,300,000",
@@ -63,8 +63,8 @@ def gen_info():
 			"Turn": "115%",
 			"Brake": "115%",
 			"Inventory": "35 slots",
-			"Cabins": "50",
-			"Cannon Reload": "14s"
+			"Cabins": "100",
+			"Cannon Reload": "12s"
 		},
 		"Epheria Frigate": {
 			"HP": "1,200,000",
@@ -111,11 +111,11 @@ def gen_info():
 			"Base LT": "13,500",
 			"Speed": "120%",
 			"Accel": "110%",
-			"Turn": "115%",
+			"Turn": "125%",
 			"Brake": "125%",
 			"Inventory": "20 slots",
-			"Cabins": "50",
-			"Cannon Reload": "13s"
+			"Cabins": "100",
+			"Cannon Reload": "12s"
 		},
 		"Carrack (Valor)": {
 			"HP": "1,300,000",
@@ -123,17 +123,30 @@ def gen_info():
 			"Base LT": "13,500",
 			"Speed": "115%",
 			"Accel": "110%",
-			"Turn": "115%",
+			"Turn": "125%",
 			"Brake": "125%",
 			"Inventory": "20 slots",
-			"Cabins": "50",
-			"Cannon Reload": "12s"
+			"Cabins": "100",
+			"Cannon Reload": "11s"
+		},
+		"Panokseon": {
+			"HP": "2,000,000",
+			"Rations": "1,300,000",
+			"Base LT": "12,500",
+			"Speed": "105%",
+			"Accel": "100%",
+			"Turn": "110%",
+			"Brake": "115%",
+			"Inventory": "20 slots",
+			"Cabins": "150",
+			"Cannon Reload": "13s"
 		},
 	}
 	order = [
 		["Epheria Sailboat", "Improved Sailboat", "Epheria Frigate", "Improved Frigate"],
 		["Epheria Caravel", "Epheria Galleass"],
-		["Carrack (Advance)", "Carrack (Balance)", "Carrack (Volante)", "Carrack (Valor)"]
+		["Carrack (Advance)", "Carrack (Balance)", "Carrack (Volante)", "Carrack (Valor)"],
+		["Panokseon"]
 	]
 	ret = P("There is more than 1 way to get an Epheria Sailboat/Frigate.  This page shows the upgrade route but you can also purchase it from the CM, craft it directly, or exchange [Event] Radiant Shakatu’s Seal x20 for it.")
 	ret += P("More information can be found " + A("at this spreadsheet", href="https://docs.google.com/document/d/1basknMfrfcH6AzJD9PkzeUunqrIGTuS6SfXPf3a7pso/preview", target="_blank") +" or " + A("these patch notes", href="https://www.blackdesertonline.com/news/view/3216", target="_blank"))
