@@ -41,7 +41,7 @@ recipes = {
 		"Island Tree Coated Plywood": 100,
 		"Rock Salt Ingot": 100,
 		"Deep Sea Memory Filled Glue": 4,
-		"Seaweed Stalk": 6
+		"Seaweed Stalk": 4
 	},
 	"Carrack (Advance)": {
 		"Epheria Caravel": 1,

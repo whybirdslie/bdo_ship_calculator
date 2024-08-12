@@ -4,7 +4,7 @@ tccost = {
 	"Information": 0,
 	"Epheria Sailboat": 0,
 	"Improved Epheria Sailboat": 0,
-	"Epheria Caravel": 1560,
+	"Epheria Caravel": 1360,
 	"Carrack (Advance)": 264050,
 	"Carrack (Balance)": 263050,
 	"Epheria Frigate": 0,
