@@ -23,4 +23,5 @@ coins = {
 	"Moon Vein Flax Fabric": 50,
 	"Moon Scale Plywood": 20,
 	"Mandragora Essence": 100,
+	"Glue With Traces of Deep Waves": 500,
 }

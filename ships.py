@@ -12,4 +12,5 @@ ships = [
 	"Epheria Galleass",
 	"Carrack (Volante)",
 	"Carrack (Valor)",
+	"Panokseon",
 ]

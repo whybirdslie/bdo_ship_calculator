@@ -11,5 +11,6 @@ tccost = {
 	"Improved Epheria Frigate": 0,
 	"Epheria Galleass": 1200,
 	"Carrack (Volante)": 291050,
-	"Carrack (Valor)": 292150
+	"Carrack (Valor)": 292150,
+	"Panokseon": 100000,
 }

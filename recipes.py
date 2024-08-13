@@ -133,7 +133,15 @@ recipes = {
 		"Brilliant Pearl Shard": 30
 	},
 
+	"Panokseon": {
+		"Blueprint: Panokseon": 30,
+		"Wooden Nail Soaked in Seawater": 250,
+		"Finely Polished Pine Plywood": 300,
+		"Glue With Traces of Deep Waves": 200,
+	},
+
 	# Upgrade parts
+	"Finely Polished Pine Plywood": {"Sangpyeong Coin": 10},
 	"Graphite Ingot for Upgrade": {"Zinc Ingot": 100, "Sea Monster's Ooze": 1},
 	"Timber for Upgrade": {"Old Tree Bark": 100, "Red Tree Lump": 100, "Sea Monster's Ooze": 1},
 	"Adhesive for Upgrade": {"White Cedar Sap": 100, "Acacia Sap": 100, "Elder Tree Sap": 100, "Sea Monster's Ooze": 1},

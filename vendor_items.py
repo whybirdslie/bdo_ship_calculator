@@ -67,6 +67,13 @@ items = {
 	"Pine Coated Plywood": ["Buy from CM or process"],
 	"Enhanced Flax Fabric": ["Buy from CM or process"],
 
+	"Blueprint: Panokseon": ["2x per [Weekly] Pirate Trouble"],
+	"Wooden Nail Soaked in Seawater": ["1x Goldmont Small Battleship","2x Goldmont Medium Battleship","3x Goldmont Large Battleship","Hollow Maretta Sea Monster (rarely)"],
+	"Finely Polished Pine Plywood": ["Hollow Maretta Sea Monster (rarely)"],
+	"Glue With Traces of Deep Waves": ["Hollow Maretta Sea Monster (rarely)"],
+
+	"Sangpyeong Coin": ["5-10 per daily in Moodle Village", "19 dailies possible per day", "Several guides available"],
+
 #	"Khan's Concentrated Magic": [],
 	"Luminous Cobalt Ingot": ["Hekaru", "Ocean Stalker", "Young Nineshark", "Young Candidum", "Young Black Rust"],
 	"Bright Reef Piece": ["8x per [Daily] Ravikel's Test", "Hekaru", "Ocean Stalker", "Young Nineshark", "Young Candidum", "Young Black Rust"],

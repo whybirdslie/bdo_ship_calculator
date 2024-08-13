@@ -8,20 +8,20 @@
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body onload=brython({"debug":1})>
+<body onload=brython({"debug":0})>
     <section class="main">
         <p>This site uses local storage to save your choices and requires Javascript to function properly<span style="font-family: monospace;">.</span></p>
-		<p>Minor updates to match BDOCodex, Caravel had too many listed of a part.</p>
-		<p>Updated to reflect <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank">Patch Notes - August 8, 2024</a> price changes.</p>
+        <p>24/12/8 Added Panokseon.  Fixed a couple recipes.</p>
+        <p>Updated to reflect <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank">Patch Notes - August 8, 2024</a> price changes.</p>
         <br /><b>Select a ship: </b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
         <br /><span id="reset"></span>(warning not reversible)
         <br/><br/>
-			<p>
-				<a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank">Suggestions</a>
-				<br/>
-				<a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank">Bugs</a>
-			</p>
+            <p>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank">Suggestions</a>
+                <br/>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank">Bugs</a>
+            </p>
             <div id="sponsor">
                 <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/become_a_patron_button@2x.png" class="sponsor_img"></a></div>
             </div>
@@ -70,13 +70,16 @@
         def notes(val):
             ret = []
             if val in coins:
-                ret.append("{} Sea Coins".format(coins[val]) + BR())
+                ret.append("{} Crow Coins".format(coins[val]) + BR())
             if val in items:
                 for i in items[val]:
                     ret.append(i + BR())
             if val in recipes and val not in ships:
                 for i in recipes[val]:
-                    ret.append("Recipe: {}x {}".format(recipes[val][i], i) + BR())
+                    if i in ["Sangpyeong Coin"]:
+                        ret.append("Exchange: {}x {}".format(recipes[val][i], i) + BR())
+                    else:
+                        ret.append("Recipe: {}x {}".format(recipes[val][i], i) + BR())
             if val in barters:
                 ret.append(B("Trade Item Barter") + BR())
                 for entry in barters[val]:
@@ -122,7 +125,7 @@
                                 queue = []
 
             t = TABLE(TR(TH("Count")+TH("Name")+TH("Notes")))
-            tcoins = TABLE(TR(TH("Name") + TH("Total (Sea Coins)")))
+            tcoins = TABLE(TR(TH("Name") + TH("Total (Crow Coins)")))
             total_remain = 0
             for item in sorted(missing):
                 t <= TR(TD(missing[item])+TD(item)+TD(notes(item)))
@@ -171,7 +174,7 @@
 
                 titletext = []
                 if name in coins:
-                    titletext.append("{} Sea Coins".format(coins[name]))
+                    titletext.append("{} Crow Coins".format(coins[name]))
                 if name in items:
                     titletext.extend(items[name])
                 if name in barters:
@@ -206,7 +209,7 @@
 
                     titletext = []
                     if name in coins:
-                        titletext.append("{} Sea Coins".format(coins[name]))
+                        titletext.append("{} Crow Coins".format(coins[name]))
                     if name in items:
                         titletext.extend(items[name])
                     if name in barters:
