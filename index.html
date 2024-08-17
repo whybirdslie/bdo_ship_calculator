@@ -11,7 +11,8 @@
 <body onload=brython({"debug":0})>
     <section class="main">
         <p>This site uses local storage to save your choices and requires Javascript to function properly<span style="font-family: monospace;">.</span></p>
-        <p>24/12/8 Added Panokseon.  Fixed a couple recipes.</p>
+        <p>24/17/8 Added overview keep lists for trade items and ship material barter.</p>
+		<p>24/12/8 Added Panokseon.  Fixed a couple recipes.</p>
         <p>Updated to reflect <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank">Patch Notes - August 8, 2024</a> price changes.</p>
         <br /><b>Select a ship: </b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
@@ -69,6 +70,8 @@
         # returns empty string if no information
         def notes(val):
             ret = []
+            tbart = []
+            sbart = []
             if val in coins:
                 ret.append("{} Crow Coins".format(coins[val]) + BR())
             if val in items:
@@ -84,14 +87,22 @@
                 ret.append(B("Trade Item Barter") + BR())
                 for entry in barters[val]:
                     for item in entry["input"]:
+                        tbart.append(item)
                         ret.append("{} per ".format(entry['count']) + SPAN(item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
             if val in shipbarters:
                 ret.append(B("Ship Material Barter") + BR())
                 for entry in shipbarters[val]:
                     for item in entry["input"]:
+                        sbart.append(item)
                         ret.append("{} per ".format(entry['count']) + SPAN(item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
-            return ret
+            return ret, tbart, sbart
 
+        # add a list to a dict key
+        def addlist(target, source, item):
+            for key in source:
+                if key not in target:
+                    target[key] = []
+                target[key].append(item)
 
         # update missing parts
         def update_missing():
@@ -127,8 +138,13 @@
             t = TABLE(TR(TH("Count")+TH("Name")+TH("Notes")))
             tcoins = TABLE(TR(TH("Name") + TH("Total (Crow Coins)")))
             total_remain = 0
+            tbartitems = {}
+            sbartitems = {}
             for item in sorted(missing):
-                t <= TR(TD(missing[item])+TD(item)+TD(notes(item)))
+                snotes, tbart, sbart = notes(item)
+                addlist(tbartitems, tbart, item)
+                addlist(sbartitems, sbart, item)
+                t <= TR(TD(missing[item])+TD(item)+TD(snotes))
                 if item in coins:
                     cost = coins[item] * missing[item]
                     total_remain += cost
@@ -140,6 +156,18 @@
                 doc['missing'] <= H4("Coin tracker") + tcoins
             doc['missing'] <= H4("Item tracker") + t
 
+            if tbartitems:
+                tb = TABLE(TR(TH("Name")+TH("Notes")))
+                for tbp in sorted(tbartitems):
+                    tb <= TR(TD(SPAN(tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
+                doc['missing'] <= H4("Keep for Trade Item Barter") + tb
+
+            if sbartitems:
+                sb = TABLE(TR(TH("Name")+TH("Notes")))
+                for sbp in sorted(sbartitems):
+                    sb <= TR(TD(SPAN(sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
+
+                doc['missing'] <= H4("Keep for Ship Material Barter") + sb
 
         # Update the stored value of an item
         def update_count(ev):
