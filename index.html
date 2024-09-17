@@ -14,18 +14,18 @@
             <option value="en">English</option>
             <option value="de">Deutsch</option>
         </select>
-        <p><span id="storage-text"></span><span style="font-family: monospace;">.</span></p>
-        <p><span id="update-text"></span></p>
-        <p><span id="panokseon-text"></span></p>
-        <p><span id="patch-notes-text"></span> <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank"><span id="patch-notes-link-text"></span></a> <span id="price-changes-text"></span></p>
-        <br /><b><span id="select-ship-text"></span></b><span id="shiplist"></span><br /><br />
+        <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span><span style="font-family: monospace;">.</span></p>
+        <p><span id="update-text">Added overview keep lists for trade items and ship material barter.</span></p>
+        <p><span id="panokseon-text">Added Panokseon. Fixed a couple recipes.</span></p>
+        <p><span id="patch-notes-text">Updated to reflect</span> <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank"><span id="patch-notes-link-text">Patch Notes - August 8, 2024</span></a> <span id="price-changes-text">price changes.</span></p>
+        <br /><b><span id="select-ship-text">Select a ship:</span></b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
-        <br /><span id="reset"></span>(<span id="warning-text"></span>)
+        <br /><span id="reset"></span>(<span id="warning-text">(warning not reversible)</span>)
         <br/><br/>
             <p>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank"><span id="suggestions-text"></span></a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank"><span id="suggestions-text">Suggestions</span></a>
                 <br/>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text"></span></a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text">Bugs</span></a>
             </p>
             <div id="sponsor">
                 <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/become_a_patron_button@2x.png" class="sponsor_img"></a></div>
@@ -44,7 +44,7 @@
         from ships import ships
         from information import gen_info
         from totals import tccost
-        from translations_de import items_de, info_de, static_text_de
+        from translations_de import items_de, info_de, static_text_de, recipes_de
 
         # Global variable to store current language
         current_language = 'en'
@@ -203,7 +203,7 @@
                 ids.append(newid)
                 val = 10 if '+' in part else recipes[eventname][part]
                 name = part[4:] if '+' in part else part
-                display_name = items_de.get(name, name) if current_language == 'de' else name
+                display_name = recipes_de.get(name, name) if current_language == 'de' else name
                 options = [optiontemplate.format(x) for x in range(val+1)]
                 sel = SELECT(''.join(options), size=1, multiple=False, id=newid, Class="current")
                 sel['data-name'] = part
@@ -239,7 +239,7 @@
                     ids.append(newid)
                     val = (10 if '+' in piece else recipes[item][piece]) * recipe_extra[item]
                     name = piece[4:] if '+' in piece else piece
-                    display_name = items_de.get(name, name) if current_language == 'de' else name
+                    display_name = recipes_de.get(name, name) if current_language == 'de' else name
                     options = [optiontemplate.format(x) for x in range(val+1)]
                     sel = SELECT(''.join(options), size=1, multiple=False, id=newid, Class="current")
                     sel['data-name'] = piece
@@ -291,7 +291,7 @@
             doc['shiplist'].clear()  # Clear existing content
             sel = html.SELECT(size=1, multiple=False, id="ship", step="1")
             for ship in ships:
-                display_name = items_de.get(ship, ship) if current_language == 'de' else ship
+                display_name = recipes_de.get(ship, ship) if current_language == 'de' else ship
                 sel <= html.OPTION(display_name, value=ship)
             sel.bind("change", update)
             doc['shiplist'] <= sel
@@ -394,27 +394,29 @@
         # Function to switch language
         def switch_language(ev):
             global current_language
-            current_language = ev.target.value
-            doc['language-selector'].value = current_language  # Update the language selector
-            create_ship_list()  # Recreate the ship list with the new language
-            
-            # Update static text elements
-            doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
-            doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
-            doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
-            doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
-            doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
-            doc['price-changes-text'].text = translate_static_text("price changes.")
-            doc['select-ship-text'].text = translate_static_text("Select a ship:")
-            doc['warning-text'].text = translate_static_text("(warning not reversible)")
-            doc['suggestions-text'].text = translate_static_text("Suggestions")
-            doc['bugs-text'].text = translate_static_text("Bugs")
-            doc['reset'].text = translate_static_text("Reset Data")
+            new_language = ev.target.value
+            if new_language != current_language:
+                current_language = new_language
+                doc['language-selector'].value = current_language  # Update the language selector
+                create_ship_list()  # Recreate the ship list with the new language
+                
+                # Update static text elements
+                doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
+                doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
+                doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
+                doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
+                doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
+                doc['price-changes-text'].text = translate_static_text("price changes.")
+                doc['select-ship-text'].text = translate_static_text("Select a ship:")
+                doc['warning-text'].text = translate_static_text("(warning not reversible)")
+                doc['suggestions-text'].text = translate_static_text("Suggestions")
+                doc['bugs-text'].text = translate_static_text("Bugs")
+                doc['reset'].text = translate_static_text("Reset Data")
 
-            if get_storage('ship') == "Information":
-                show_info()
-            else:
-                update(None)
+                if get_storage('ship') == "Information":
+                    show_info()
+                else:
+                    update(None)
 
         # Bind language selector to switch_language function
         doc['language-selector'].bind('change', switch_language)
@@ -422,19 +424,6 @@
         # Function to translate static text
         def translate_static_text(text):
             return static_text_de.get(text, text) if current_language == 'de' else text
-
-        # Update static text elements
-        doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
-        doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
-        doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
-        doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
-        doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
-        doc['price-changes-text'].text = translate_static_text("price changes.")
-        doc['select-ship-text'].text = translate_static_text("Select a ship:")
-        doc['warning-text'].text = translate_static_text("(warning not reversible)")
-        doc['suggestions-text'].text = translate_static_text("Suggestions")
-        doc['bugs-text'].text = translate_static_text("Bugs")
-        doc['reset'].text = translate_static_text("Reset Data")
 
     </script>
 
