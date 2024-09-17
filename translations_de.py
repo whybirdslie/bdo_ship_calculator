@@ -124,6 +124,14 @@ static_text_de = {
     "Suggestions": "Vorschläge",
     "Bugs": "Fehler",
     "Reset Data": "Daten zurücksetzen",
+    "Name": "Name",
+    "Total (Crow Coins)": "Gesamt (Krähenmünzen)",
+    "Total Remaining  ({:.2%}) done": "Verbleibend Gesamt ({:.2%}) erledigt",
+    "Coin tracker": "Münzen-Tracker",
+    "Item tracker": "Gegenstands-Tracker",
+    "Notes": "Notizen",
+    "Keep for Trade Item Barter": "Für Handelsgegenstände-Tausch behalten",
+    "Keep for Ship Material Barter": "Für Schiffsmaterial-Tausch behalten",
 }
 
 recipes_de = {
@@ -219,4 +227,32 @@ recipes_de = {
     "Black Stone": "Schwarzer Stein",
     "Tidal Black Stone": "Gezeiten-Schwarzstein",
     "Bright Reef Piece": "Helles Riffstück",
+}
+
+coins_de = {
+    "Khan's Concentrated Magic": "Khans konzentrierte Magie",
+    "Luminous Cobalt Ingot": "Leuchtender Kobaltbarren",
+    "Bright Reef Piece": "Helles Riffstück",
+    "Great Ocean Dark Iron": "Dunkles Eisen des Großen Ozeans",
+    "Cobalt Ingot": "Kobaltbarren",
+    "Brilliant Rock Salt Ingot": "Brillanter Steinsalzbarren",
+    "Seaweed Stalk": "Seetangstängel",
+    "Enhanced Island Tree Coated Plywood": "Verbessertes beschichtetes Inselbaum-Sperrholz",
+    "Pure Pearl Crystal": "Reiner Perlenkristall",
+    "Cox Pirates' Artifact (Parley Beginner)": "Cox-Piraten-Artefakt (Verhandlung Anfänger)",
+    "Cox Pirates' Artifact (Parley Expert)": "Cox-Piraten-Artefakt (Verhandlung Experte)",
+    "Cox Pirates' Artifact (Combat)": "Cox-Piraten-Artefakt (Kampf)",
+    "Deep Sea Memory Filled Glue": "Mit Tiefseeerinnerungen gefüllter Klebstoff",
+    "Brilliant Pearl Shard": "Brillante Perlenscherbe",
+    "Ruddy Manganese Nodule": "Rötlicher Manganknollen",
+    "Tear of the Ocean": "Träne des Ozeans",
+    "Khan's Tendon": "Khans Sehne",
+    "Khan's Scale": "Khans Schuppe",
+    "Tidal Black Stone": "Gezeiten-Schwarzstein",
+    "Tide-Dyed Standardized Timber Square": "Gezeitengefärbtes standardisiertes Holzquadrat",
+    "Deep Tide-Dyed Standardized Timber Square": "Tief gezeitengefärbtes standardisiertes Holzquadrat",
+    "Moon Vein Flax Fabric": "Mondader-Leinenstoff",
+    "Moon Scale Plywood": "Mondschuppen-Sperrholz",
+    "Mandragora Essence": "Alraunen-Essenz",
+    "Glue With Traces of Deep Waves": "Klebstoff mit Spuren tiefer Wellen",
 }

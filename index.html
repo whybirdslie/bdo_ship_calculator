@@ -44,10 +44,14 @@
         from ships import ships
         from information import gen_info
         from totals import tccost
-        from translations_de import items_de, info_de, static_text_de, recipes_de
+        from translations_de import items_de, info_de, static_text_de, recipes_de, coins_de
 
         # Global variable to store current language
         current_language = 'en'
+
+        # Function to translate static text
+        def translate_static_text(text):
+            return static_text_de.get(text, text) if current_language == 'de' else text
 
         storage_key = "bdo_ship_upgrade"
 
@@ -81,6 +85,7 @@
             tbart = []
             sbart = []
             if val in coins:
+                coin_name = coins_de.get(val, val) if current_language == 'de' else val
                 ret.append("{} Crow Coins".format(coins[val]) + BR())
             if val in items:
                 for i in items[val]:
@@ -144,7 +149,7 @@
                                 queue = []
 
             t = TABLE(TR(TH("Count")+TH("Name")+TH("Notes")))
-            tcoins = TABLE(TR(TH("Name") + TH("Total (Crow Coins)")))
+            tcoins = TABLE(TR(TH(translate_static_text("Name")) + TH(translate_static_text("Total (Crow Coins)"))))
             total_remain = 0
             tbartitems = {}
             sbartitems = {}
@@ -152,30 +157,34 @@
                 snotes, tbart, sbart = notes(item)
                 addlist(tbartitems, tbart, item)
                 addlist(sbartitems, sbart, item)
-                t <= TR(TD(missing[item])+TD(item)+TD(snotes))
+                translated_item = recipes_de.get(item, item) if current_language == 'de' else item
+                t <= TR(TD(missing[item])+TD(translated_item)+TD(snotes))
                 if item in coins:
                     cost = coins[item] * missing[item]
                     total_remain += cost
-                    tcoins <= TR(TD(item) + TD("{:,}".format(cost)))
+                    translated_coin_name = coins_de.get(item, item) if current_language == 'de' else item
+                    tcoins <= TR(TD(translated_coin_name) + TD("{:,}".format(cost)))
 
             doc['missing'].text = ''
             if total_remain:
-                tcoins <= TR(TD(B("Total Remaining  ({:.2%}) done".format((tccost[get_storage('ship')] - total_remain) / tccost[get_storage('ship')])))+TD("{:,}".format(total_remain)))
-                doc['missing'] <= H4("Coin tracker") + tcoins
-            doc['missing'] <= H4("Item tracker") + t
+                tcoins <= TR(TD(B(translate_static_text("Total Remaining  ({:.2%}) done").format((tccost[get_storage('ship')] - total_remain) / tccost[get_storage('ship')])))+TD("{:,}".format(total_remain)))
+                doc['missing'] <= H4(translate_static_text("Coin tracker")) + tcoins
+            doc['missing'] <= H4(translate_static_text("Item tracker")) + t
 
             if tbartitems:
-                tb = TABLE(TR(TH("Name")+TH("Notes")))
+                tb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for tbp in sorted(tbartitems):
-                    tb <= TR(TD(SPAN(tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
-                doc['missing'] <= H4("Keep for Trade Item Barter") + tb
+                    translated_tbp = recipes_de.get(tbp, tbp) if current_language == 'de' else tbp
+                    tb <= TR(TD(SPAN(translated_tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
+                doc['missing'] <= H4(translate_static_text("Keep for Trade Item Barter")) + tb
 
             if sbartitems:
-                sb = TABLE(TR(TH("Name")+TH("Notes")))
+                sb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for sbp in sorted(sbartitems):
-                    sb <= TR(TD(SPAN(sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
+                    translated_sbp = recipes_de.get(sbp, sbp) if current_language == 'de' else sbp
+                    sb <= TR(TD(SPAN(translated_sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
 
-                doc['missing'] <= H4("Keep for Ship Material Barter") + sb
+                doc['missing'] <= H4(translate_static_text("Keep for Ship Material Barter")) + sb
 
         # Update the stored value of an item
         def update_count(ev):
@@ -212,6 +221,7 @@
 
                 titletext = []
                 if name in coins:
+                    coin_name = coins_de.get(name, name) if current_language == 'de' else name
                     titletext.append("{} Crow Coins".format(coins[name]))
                 if name in items:
                     titletext.extend(items[name])
@@ -248,6 +258,7 @@
 
                     titletext = []
                     if name in coins:
+                        coin_name = coins_de.get(name, name) if current_language == 'de' else name
                         titletext.append("{} Crow Coins".format(coins[name]))
                     if name in items:
                         titletext.extend(items[name])
@@ -420,10 +431,6 @@
 
         # Bind language selector to switch_language function
         doc['language-selector'].bind('change', switch_language)
-
-        # Function to translate static text
-        def translate_static_text(text):
-            return static_text_de.get(text, text) if current_language == 'de' else text
 
     </script>
 
