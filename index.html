@@ -14,18 +14,18 @@
             <option value="en">English</option>
             <option value="de">Deutsch</option>
         </select>
-        <p>This site uses local storage to save your choices and requires Javascript to function properly<span style="font-family: monospace;">.</span></p>
-        <p>24/17/8 Added overview keep lists for trade items and ship material barter.</p>
-		<p>24/12/8 Added Panokseon.  Fixed a couple recipes.</p>
-        <p>Updated to reflect <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank">Patch Notes - August 8, 2024</a> price changes.</p>
-        <br /><b>Select a ship: </b><span id="shiplist"></span><br /><br />
+        <p><span id="storage-text"></span><span style="font-family: monospace;">.</span></p>
+        <p><span id="update-text"></span></p>
+        <p><span id="panokseon-text"></span></p>
+        <p><span id="patch-notes-text"></span> <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank"><span id="patch-notes-link-text"></span></a> <span id="price-changes-text"></span></p>
+        <br /><b><span id="select-ship-text"></span></b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
-        <br /><span id="reset"></span>(warning not reversible)
+        <br /><span id="reset"></span>(<span id="warning-text"></span>)
         <br/><br/>
             <p>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank">Suggestions</a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank"><span id="suggestions-text"></span></a>
                 <br/>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank">Bugs</a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text"></span></a>
             </p>
             <div id="sponsor">
                 <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/become_a_patron_button@2x.png" class="sponsor_img"></a></div>
@@ -44,7 +44,7 @@
         from ships import ships
         from information import gen_info
         from totals import tccost
-        from items_de import items_de  # Import German translations
+        from translations_de import items_de, info_de, static_text_de
 
         # Global variable to store current language
         current_language = 'en'
@@ -311,7 +311,7 @@
                 cotx.stroke();
 
             doc['shipparts'].text = ''
-            doc['shipparts'] <= gen_info()
+            doc['shipparts'] <= gen_info(current_language)
             font = 16
             canvas = doc["shipchart"]
             ctx = canvas.getContext("2d")
@@ -397,10 +397,44 @@
             current_language = ev.target.value
             doc['language-selector'].value = current_language  # Update the language selector
             create_ship_list()  # Recreate the ship list with the new language
-            update(None)
+            
+            # Update static text elements
+            doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
+            doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
+            doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
+            doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
+            doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
+            doc['price-changes-text'].text = translate_static_text("price changes.")
+            doc['select-ship-text'].text = translate_static_text("Select a ship:")
+            doc['warning-text'].text = translate_static_text("(warning not reversible)")
+            doc['suggestions-text'].text = translate_static_text("Suggestions")
+            doc['bugs-text'].text = translate_static_text("Bugs")
+            doc['reset'].text = translate_static_text("Reset Data")
+
+            if get_storage('ship') == "Information":
+                show_info()
+            else:
+                update(None)
 
         # Bind language selector to switch_language function
         doc['language-selector'].bind('change', switch_language)
+
+        # Function to translate static text
+        def translate_static_text(text):
+            return static_text_de.get(text, text) if current_language == 'de' else text
+
+        # Update static text elements
+        doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
+        doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
+        doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
+        doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
+        doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
+        doc['price-changes-text'].text = translate_static_text("price changes.")
+        doc['select-ship-text'].text = translate_static_text("Select a ship:")
+        doc['warning-text'].text = translate_static_text("(warning not reversible)")
+        doc['suggestions-text'].text = translate_static_text("Suggestions")
+        doc['bugs-text'].text = translate_static_text("Bugs")
+        doc['reset'].text = translate_static_text("Reset Data")
 
     </script>
 

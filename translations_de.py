@@ -84,3 +84,44 @@ items_de = {
     "Tidal Black Stone": "Gezeiten-Schwarzstein",
     "Mandragora Essence": "Alraunen-Essenz"
 }
+
+info_de = {
+    "There is more than 1 way to get an Epheria Sailboat/Frigate. This page shows the upgrade route but you can also purchase it from the CM, craft it directly, or exchange [Event] Radiant Shakatu's Seal x20 for it.": "Es gibt mehr als einen Weg, um ein Epheria-Segelboot/eine Epheria-Fregatte zu erhalten. Diese Seite zeigt den Upgrade-Weg, aber Sie können es auch auf dem Zentralmarkt kaufen, direkt herstellen oder gegen 20 [Event] Strahlende Shakatu-Siegel eintauschen.",
+    "More information can be found": "Weitere Informationen finden Sie",
+    "at this spreadsheet": "in dieser Tabelle",
+    "or": "oder",
+    "these patch notes": "in diesen Patchnotes",
+    "Barter items that you can trade for ship parts unlock as you finish more trades. You can always trade t1 barter items for verdant stone coupon though.": "Tauschgegenstände, die Sie gegen Schiffsteile eintauschen können, werden freigeschaltet, wenn Sie mehr Handel abschließen. Sie können jedoch immer T1-Tauschgegenstände gegen Grünstein-Coupons eintauschen.",
+    "Ship parts used for upgrade need to be full durability.": "Für das Upgrade verwendete Schiffsteile müssen volle Haltbarkeit haben.",
+    "All sea monsters can drop parts for upgrading ships. There is no list of which drops are where yet. (Nov-6)": "Alle Seeungeheuer können Teile für das Upgrade von Schiffen fallen lassen. Es gibt noch keine Liste, welche Gegenstände wo fallen gelassen werden. (6. November)",
+    "Old Moon Guild daily quests are mutually exclusive(pick 1). EG Nineshark and Young Sea Monster Hunter.": "Die täglichen Quests der Altmond-Gilde schließen sich gegenseitig aus (wählen Sie 1). Z.B. Neunhai und Junger Seeungeheuer-Jäger.",
+    "Upgrade Paths": "Upgrade-Pfade",
+    "Base Ship Stats": "Basis-Schiffsstatistiken",
+    "Stat": "Statistik",
+    "HP": "LP",
+    "Rations": "Rationen",
+    "Base LT": "Basis-LT",
+    "Speed": "Geschwindigkeit",
+    "Accel": "Beschleunigung",
+    "Turn": "Wendigkeit",
+    "Brake": "Bremse",
+    "Inventory": "Inventar",
+    "Cabins": "Kabinen",
+    "Cannon Count": "Kanonenanzahl",
+    "Reload": "Nachladezeit",
+    "Cannon Reload": "Kanonen-Nachladezeit",
+}
+
+static_text_de = {
+    "This site uses local storage to save your choices and requires Javascript to function properly.": "Diese Seite verwendet lokalen Speicher, um Ihre Auswahl zu speichern, und benötigt JavaScript, um ordnungsgemäß zu funktionieren.",
+    "Added overview keep lists for trade items and ship material barter.": "Übersichtslisten für Handelsgegenstände und Schiffsmaterialtausch hinzugefügt.",
+    "Added Panokseon. Fixed a couple recipes.": "Panokseon hinzugefügt. Einige Rezepte korrigiert.",
+    "Updated to reflect": "Aktualisiert, um die",
+    "Patch Notes - August 8, 2024": "Patchnotizen vom 8. August 2024",
+    "price changes.": "Preisänderungen widerzuspiegeln.",
+    "Select a ship:": "Wähle ein Schiff:",
+    "(warning not reversible)": "(Warnung: nicht rückgängig zu machen)",
+    "Suggestions": "Vorschläge",
+    "Bugs": "Fehler",
+    "Reset Data": "Daten zurücksetzen",
+}
