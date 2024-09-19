@@ -1,7 +1,7 @@
 # a dictionary of barter item trade-ins
 
 barters = {
-	"Bright Reef Piece": [{"count": "4", "input": ["[Level 3] Pirates' Supple Box", "[Level 3] Weasel Leather Coat", "[Level 3] Lopters Fishnet"]}],
+	"Bright Reef Piece": [{"count": "4", "input": ["[Level 3] Pirates' Supply Box", "[Level 3] Weasel Leather Coat", "[Level 3] Lopters Fishnet"]}],
 	"Brilliant Pearl Shard": [{"count": "1", "input": ["[Level 5] Azure Quartz", "[Level 5] Elixir of Youth", "[Level 5] Mysterious Rock", "[Level 5] Golden Fish Scale", "[Level 5] Faded Gold Dragon Figurine"]}],
 	"Brilliant Rock Salt Ingot": [{"count": "1", "input": ["[Level 5] Azure Quartz", "[Level 5] Portrait of the Ancient", "[Level 5] Luxury Patterned Fabric", "[Level 5] 102 Year Old Golden Herb", "[Level 5] Taxidermied White Caterpillar"]}],
 	"Cobalt Ingot": [{"count": "2", "input": ["[Level 2] Pirate Ship Mast", "[Level 2] Supreme Oyster Box", "[Level 2] Sea Survival Kit"]}],

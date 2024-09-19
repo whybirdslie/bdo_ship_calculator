@@ -8,20 +8,24 @@
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body onload=brython({"debug":0})>
+<body onload="brython({'debug': 0})">
     <section class="main">
-        <p>This site uses local storage to save your choices and requires Javascript to function properly<span style="font-family: monospace;">.</span></p>
-        <p>24/17/8 Added overview keep lists for trade items and ship material barter.</p>
-		<p>24/12/8 Added Panokseon.  Fixed a couple recipes.</p>
-        <p>Updated to reflect <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank">Patch Notes - August 8, 2024</a> price changes.</p>
-        <br /><b>Select a ship: </b><span id="shiplist"></span><br /><br />
+        <select id="language-selector">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+        </select>
+        <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span><span style="font-family: monospace;">.</span></p>
+        <p><span id="update-text">Added overview keep lists for trade items and ship material barter.</span></p>
+        <p><span id="panokseon-text">Added Panokseon. Fixed a couple recipes.</span></p>
+        <p><span id="patch-notes-text">Updated to reflect</span> <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank"><span id="patch-notes-link-text">Patch Notes - August 8, 2024</span></a> <span id="price-changes-text">price changes.</span></p>
+        <br /><b><span id="select-ship-text">Select a ship:</span></b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
-        <br /><span id="reset"></span>(warning not reversible)
+        <br /><span id="reset"></span>(<span id="warning-text">(warning not reversible)</span>)
         <br/><br/>
             <p>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank">Suggestions</a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank"><span id="suggestions-text">Suggestions</span></a>
                 <br/>
-                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank">Bugs</a>
+                <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text">Bugs</span></a>
             </p>
             <div id="sponsor">
                 <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/become_a_patron_button@2x.png" class="sponsor_img"></a></div>
@@ -29,7 +33,7 @@
     </section>
     <script type="text/python">
         from browser import document as doc
-        from browser import html, bind
+        from browser import html, bind, window
         from browser.html import TABLE, TR, TH, TD, BR, H3, H4, SPAN, B, P, SELECT, OPTION, INPUT
         from browser.local_storage import storage
         from recipes import recipes
@@ -40,32 +44,45 @@
         from ships import ships
         from information import gen_info
         from totals import tccost
-
+        from translations_de import items_de, info_de, static_text_de, recipes_de, coins_de, shipbarters_de, barters_de
+    
         storage_key = "bdo_ship_upgrade"
-
+    
         # Setter storage so that we can differentiate values on this site from others at the same domain
         def set_storage(key, val):
             storage["{}-{}".format(storage_key, key)] = val
-
+    
         # Getting for storage so that we can differentiate values on this site from others at the same domain
         def get_storage(key):
             return storage["{}-{}".format(storage_key, key)]
-
+    
         # Check if a value exists in storage
         def check_storage(key):
             return "{}-{}".format(storage_key, key) in storage
-
+    
+        def set_language(lang):
+            set_storage('language', lang)
+    
+        def get_language():
+            return get_storage('language') if check_storage('language') else 'en'
+    
+        # Initialize current_language
+        current_language = get_language()
+    
+        # Function to translate static text
+        def translate_static_text(text):
+            return static_text_de.get(text, text) if current_language == 'de' else text
+    
         # Reset that only deletes values for this site
         def reset_data(ev):
             for key in storage.keys():
                 if key.startswith(storage_key):
                     del storage[key]
-
+    
             set_storage('ship', "Information")
             doc['ship'].value = get_storage('ship')
             update(None)
-
-
+    
         # Given a part name, returns a string with information about that part
         # returns empty string if no information
         def notes(val):
@@ -73,44 +90,50 @@
             tbart = []
             sbart = []
             if val in coins:
-                ret.append("{} Crow Coins".format(coins[val]) + BR())
+                coin_name = coins_de.get(val, val) if current_language == 'de' else val
+                ret.append("{} {}".format(coins[val], translate_static_text("Crow Coins")) + BR())
             if val in items:
                 for i in items[val]:
-                    ret.append(i + BR())
+                    translated_item = shipbarters_de.get(i, i) if current_language == 'de' else i
+                    ret.append(translated_item + BR())
             if val in recipes and val not in ships:
                 for i in recipes[val]:
                     if i in ["Sangpyeong Coin"]:
-                        ret.append("Exchange: {}x {}".format(recipes[val][i], i) + BR())
+                        translated_item = recipes_de.get(i, i) if current_language == 'de' else i
+                        ret.append("{}: {}x {}".format(translate_static_text("Exchange"), recipes[val][i], translated_item) + BR())
                     else:
-                        ret.append("Recipe: {}x {}".format(recipes[val][i], i) + BR())
+                        translated_item = recipes_de.get(i, i) if current_language == 'de' else i
+                        ret.append("{}: {}x {}".format(translate_static_text("Recipe"), recipes[val][i], translated_item) + BR())
             if val in barters:
-                ret.append(B("Trade Item Barter") + BR())
+                ret.append(B(translate_static_text("Trade Item Barter")) + BR())
                 for entry in barters[val]:
                     for item in entry["input"]:
                         tbart.append(item)
-                        ret.append("{} per ".format(entry['count']) + SPAN(item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
+                        translated_item = barters_de.get(item, item) if current_language == 'de' else item
+                        ret.append("{} {} ".format(entry['count'], translate_static_text("per")) + SPAN(translated_item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
             if val in shipbarters:
-                ret.append(B("Ship Material Barter") + BR())
+                ret.append(B(translate_static_text("Ship Material Barter")) + BR())
                 for entry in shipbarters[val]:
                     for item in entry["input"]:
                         sbart.append(item)
-                        ret.append("{} per ".format(entry['count']) + SPAN(item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
+                        translated_item = shipbarters_de.get(item, item) if current_language == 'de' else item
+                        ret.append("{} {} ".format(entry['count'], translate_static_text("per")) + SPAN(translated_item, Class="trade{}".format(item[item.find(']') - 1])) + BR())
             return ret, tbart, sbart
-
+    
         # add a list to a dict key
         def addlist(target, source, item):
             for key in source:
                 if key not in target:
                     target[key] = []
                 target[key].append(item)
-
+    
         # update missing parts
         def update_missing():
             missing = {}
             for item in doc.select(".current"):
                 count = int(item['data-max']) - int(doc[item['id']].value)
                 if count:
-                    if "+" not in item['data-name']:
+                    if "+" not in item['data-name'] and item['data-name'] not in ships:
                         if item['data-name'] not in missing:
                             missing[item['data-name']] = 0
                         missing[item['data-name']] += count
@@ -118,12 +141,11 @@
                         count = 1
                     if item['data-name'] in ships:
                         continue
-
+    
                     queue = [(item['data-name'], count)]
                     while queue:
                         current, c_count = queue.pop()
                         if current in recipes:
-
                             for i in recipes[current]:
                                 n_count = c_count * recipes[current][i]
                                 if "+" not in i:
@@ -134,9 +156,9 @@
                                     queue.append((i, n_count))
                             if any(["+{} ".format(int(doc[item['id']].value)) in x or x.startswith("Epheria") for x in recipes[current]]):
                                 queue = []
-
-            t = TABLE(TR(TH("Count")+TH("Name")+TH("Notes")))
-            tcoins = TABLE(TR(TH("Name") + TH("Total (Crow Coins)")))
+    
+            t = TABLE(TR(TH(translate_static_text("Count"))+TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
+            tcoins = TABLE(TR(TH(translate_static_text("Name")) + TH(translate_static_text("Total (Crow Coins)"))))
             total_remain = 0
             tbartitems = {}
             sbartitems = {}
@@ -144,48 +166,52 @@
                 snotes, tbart, sbart = notes(item)
                 addlist(tbartitems, tbart, item)
                 addlist(sbartitems, sbart, item)
-                t <= TR(TD(missing[item])+TD(item)+TD(snotes))
+                translated_item = recipes_de.get(item, item) if current_language == 'de' else item
+                t <= TR(TD(missing[item])+TD(translated_item)+TD(snotes))
                 if item in coins:
                     cost = coins[item] * missing[item]
                     total_remain += cost
-                    tcoins <= TR(TD(item) + TD("{:,}".format(cost)))
-
+                    translated_coin_name = coins_de.get(item, item) if current_language == 'de' else item
+                    tcoins <= TR(TD(translated_coin_name) + TD("{:,}".format(cost)))
+    
             doc['missing'].text = ''
             if total_remain:
-                tcoins <= TR(TD(B("Total Remaining  ({:.2%}) done".format((tccost[get_storage('ship')] - total_remain) / tccost[get_storage('ship')])))+TD("{:,}".format(total_remain)))
-                doc['missing'] <= H4("Coin tracker") + tcoins
-            doc['missing'] <= H4("Item tracker") + t
-
+                tcoins <= TR(TD(B(translate_static_text("Total Remaining  ({:.2%}) done").format((tccost[get_storage('ship')] - total_remain) / tccost[get_storage('ship')])))+TD("{:,}".format(total_remain)))
+                doc['missing'] <= H4(translate_static_text("Coin tracker")) + tcoins
+            doc['missing'] <= H4(translate_static_text("Item tracker")) + t
+    
             if tbartitems:
-                tb = TABLE(TR(TH("Name")+TH("Notes")))
+                tb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for tbp in sorted(tbartitems):
-                    tb <= TR(TD(SPAN(tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
-                doc['missing'] <= H4("Keep for Trade Item Barter") + tb
-
+                    translated_tbp = barters_de.get(tbp, tbp) if current_language == 'de' else tbp
+                    tb <= TR(TD(SPAN(translated_tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
+                doc['missing'] <= H4(translate_static_text("Keep for Trade Item Barter")) + tb
+    
             if sbartitems:
-                sb = TABLE(TR(TH("Name")+TH("Notes")))
+                sb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for sbp in sorted(sbartitems):
-                    sb <= TR(TD(SPAN(sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
-
-                doc['missing'] <= H4("Keep for Ship Material Barter") + sb
-
+                    translated_sbp = shipbarters_de.get(sbp, sbp) if current_language == 'de' else sbp
+                    sb <= TR(TD(SPAN(translated_sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
+    
+                doc['missing'] <= H4(translate_static_text("Keep for Ship Material Barter")) + sb
+    
         # Update the stored value of an item
         def update_count(ev):
             set_storage(ev.currentTarget['id'], ev.currentTarget.value)
             update(None)
-
-
+    
         # Change what is displayed to match current selection
         def update(ev):
+            global current_language
             if ev:
                 set_storage('ship', ev.currentTarget.value)
             eventname = get_storage('ship')
             if eventname == "Information":
                 show_info()
                 return
-
+    
             t = TABLE()
-            t <= TR(TH("Count") + TH("Max") + TH("Name"))
+            t <= TR(TH(translate_static_text("Count")) + TH(translate_static_text("Max")) + TH(translate_static_text("Name")))
             ids = []
             recipe_extra = {}
             optiontemplate = "<option>{0}</option>"
@@ -194,14 +220,16 @@
                 ids.append(newid)
                 val = 10 if '+' in part else recipes[eventname][part]
                 name = part[4:] if '+' in part else part
+                display_name = recipes_de.get(name, name) if current_language == 'de' else name
                 options = [optiontemplate.format(x) for x in range(val+1)]
                 sel = SELECT(''.join(options), size=1, multiple=False, id=newid, Class="current")
                 sel['data-name'] = part
                 sel['data-max'] = val
                 sel.bind("change", update_count)
-
+    
                 titletext = []
                 if name in coins:
+                    coin_name = coins_de.get(name, name) if current_language == 'de' else name
                     titletext.append("{} Crow Coins".format(coins[name]))
                 if name in items:
                     titletext.extend(items[name])
@@ -214,29 +242,31 @@
                         recipe_extra[name] = 1
                     titletext.append("**RECIPE**")
                     titletext.extend(["{}: {}".format(recipes[name][x], x) for x in recipes[name]])
-
+    
                 if titletext:
-                    t <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(name) if '+' in part else part, title="\n".join(titletext))))
+                    t <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(display_name) if '+' in part else display_name, title="\n".join(titletext))))
                 else:
-                    t <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(name) if '+' in part else part))
-
+                    t <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(display_name) if '+' in part else display_name))
+    
             rec = ''
-
+    
             for item in recipe_extra:
-                tn = TABLE(TR(TH("Count")+TH("Max")+TH("Name")))
+                tn = TABLE(TR(TH(translate_static_text("Count"))+TH(translate_static_text("Max"))+TH(translate_static_text("Name"))))
                 for piece in recipes[item]:
                     newid = "{}-{}-{}".format(eventname, item, piece)
                     ids.append(newid)
                     val = (10 if '+' in piece else recipes[item][piece]) * recipe_extra[item]
                     name = piece[4:] if '+' in piece else piece
+                    display_name = recipes_de.get(name, name) if current_language == 'de' else name
                     options = [optiontemplate.format(x) for x in range(val+1)]
                     sel = SELECT(''.join(options), size=1, multiple=False, id=newid, Class="current")
                     sel['data-name'] = piece
                     sel['data-max'] = val
                     sel.bind("change", update_count)
-
+    
                     titletext = []
                     if name in coins:
+                        coin_name = coins_de.get(name, name) if current_language == 'de' else name
                         titletext.append("{} Crow Coins".format(coins[name]))
                     if name in items:
                         titletext.extend(items[name])
@@ -247,25 +277,25 @@
                     if name in recipes:
                         titletext.append("**RECIPE**")
                         titletext.extend(["{}: {}".format(recipes[name][x], x) for x in recipes[name]])
-
+    
                     if titletext:
-                        tn <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(name) if '+' in piece else piece, title="\n".join(titletext))))
+                        tn <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(display_name) if '+' in piece else display_name, title="\n".join(titletext))))
                     else:
-                        tn <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(name) if '+' in piece else piece))
-
+                        tn <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(display_name) if '+' in piece else display_name))
+    
                 rec += H4("{} {}".format(recipe_extra[item], item)) + tn
-
+    
             doc['shipparts'].text = ''
-            doc['shipparts'] <= P(B("Ship parts need to be 100% durability for upgrade recipe.") + BR() + "You will need to recover durability with Memory Fragments or the base item." + BR() +"This additional cost is not reflected in the Missing Parts list.")
-            doc['shipparts'] <= P("Barters for [Level #] items are unlocked based on the total number of barters you have done,<br /> They can randomly appear during any reset once unlocked.")
+            doc['shipparts'] <= P(B(translate_static_text("Ship parts need to be 100% durability for upgrade recipe.")) + BR() + translate_static_text("You will need to recover durability with Memory Fragments or the base item.") + BR() + translate_static_text("This additional cost is not reflected in the Missing Parts list."))
+            doc['shipparts'] <= P(translate_static_text("Barters for [Level #] items are unlocked based on the total number of barters you have done,") + "<br />" + translate_static_text("They can randomly appear during any reset once unlocked."))
             doc['shipparts'] <= t
             if rec:
-                doc['shipparts'] <= H3("Recipe Subparts") + rec
-            doc['shipparts'] <= H3("Missing parts (Automatically generated)")
+                doc['shipparts'] <= H3(translate_static_text("Recipe Subparts")) + rec
+            doc['shipparts'] <= H3(translate_static_text("Missing parts (Automatically generated)"))
             if "Carrack" in eventname:
-                doc['shipparts'] <= P("Tidal Black Stone upgrades can fail.  The number shown is the minimum.")
+                doc['shipparts'] <= P(translate_static_text("Tidal Black Stone upgrades can fail.  The number shown is the minimum."))
             doc['shipparts'] <= SPAN(id="missing")
-
+    
             # iterate over selection boxes and set to values in local storage.
             for id in ids:
                 if check_storage(id):
@@ -273,32 +303,48 @@
                 else:
                     doc[id].value = 0
             update_missing()
-
-
+    
         # Initialize our list of ships and select the previous one if a choice exists
         def create_ship_list():
+            doc['shiplist'].clear()  # Clear existing content
             sel = html.SELECT(size=1, multiple=False, id="ship", step="1")
             for ship in ships:
-                sel <= html.OPTION(ship)
+                display_name = recipes_de.get(ship, ship) if current_language == 'de' else ship
+                sel <= html.OPTION(display_name, value=ship)
             sel.bind("change", update)
             doc['shiplist'] <= sel
             if check_storage('ship') and get_storage('ship') in ships:
                 doc['ship'].value = get_storage('ship')
             update(None)
 
+        # Function to get barter items and their notes based on the current language
+        def get_barter_items_and_notes(language='en'):
+            if language == 'de':
+                barter_dict = shipbarters_de
+                notes_dict = items_de
+            else:
+                barter_dict = shipbarters
+                notes_dict = items
 
-
-
-
+            barter_items_and_notes = []
+            for item, details in barter_dict.items():
+                for detail in details:
+                    inputs = detail['input']
+                    for input_item in inputs:
+                        # Use the translated note if available, otherwise use the English note
+                        note = notes_dict.get(input_item, items.get(input_item, ["No notes available"]))[0]
+                        barter_items_and_notes.append((input_item, note))
+            return barter_items_and_notes
+    
         # Code to show an about page and miscellaneous information.
         def show_info():
             def draw_line(cotx, sx, sy, tx, ty):
                 cotx.moveTo(sx, sy);
                 cotx.lineTo(tx, ty);
                 cotx.stroke();
-
+    
             doc['shipparts'].text = ''
-            doc['shipparts'] <= gen_info()
+            doc['shipparts'] <= gen_info(current_language)
             font = 16
             canvas = doc["shipchart"]
             ctx = canvas.getContext("2d")
@@ -326,41 +372,41 @@
             draw_line(ctx, hoffset[2] + hval[3]/2, center - 1*voffset, hoffset[3] + hval[4]/2, center - 3*voffset)  # improved -> caravel
             draw_line(ctx, hoffset[3] + hval[4]/2, center - 3*voffset, hoffset[4] + hval[5]/2, center - 5*voffset)  # caravel -> carrack (advance)
             draw_line(ctx, hoffset[3] + hval[4]/2, center - 3*voffset, hoffset[4] + hval[5]/2, center - 1*voffset)  # caravel -> carrack (balance)
-
+    
             draw_line(ctx, hoffset[0] + hval[1]/2, center            , hoffset[1] + hval[2]/2, center + 3*voffset)  # Bartali -> Frigate
             draw_line(ctx, hoffset[1] + hval[2]/2, center + 3*voffset, hoffset[2] + hval[3]/2, center + 1*voffset)  # frigate -> improved
             draw_line(ctx, hoffset[1] + hval[2]/2, center + 3*voffset, hoffset[3] + hval[4]/2, center + 3*voffset)  # frigate -> galleass
             draw_line(ctx, hoffset[2] + hval[3]/2, center + 1*voffset, hoffset[3] + hval[4]/2, center + 3*voffset)  # improved -> galleass
             draw_line(ctx, hoffset[3] + hval[4]/2, center + 3*voffset, hoffset[4] + hval[5]/2, center + 1*voffset)  # galleass -> carrack (valor)
             draw_line(ctx, hoffset[3] + hval[4]/2, center + 3*voffset, hoffset[4] + hval[5]/2, center + 5*voffset)  # galleass -> carrack (volante)
-
+    
             ctx.fillRect(0, center-font, ctx.measureText("Bartali Sailboat").width, font*1.5)
-
+    
             ctx.fillRect(hoffset[1], center-font - 3*voffset, ctx.measureText("Epheria Sailboat").width, font*1.5)
             ctx.fillRect(hoffset[2], center-font - 1*voffset, ctx.measureText("Improved Sailboat").width, font*1.5)
             ctx.fillRect(hoffset[3], center-font - 3*voffset, ctx.measureText("Epheria Caravel").width, font*1.5)
             ctx.fillRect(hoffset[4], center-font - 5*voffset, ctx.measureText("Epheria Carrack").width, font*2.5)
             ctx.fillRect(hoffset[4], center-font - 1*voffset, ctx.measureText("Epheria Carrack").width, font*2.5)
-
+    
             ctx.fillRect(hoffset[1], center-font + 3*voffset, ctx.measureText("Epheria Frigate").width, font*1.5)
             ctx.fillRect(hoffset[2], center-font + 1*voffset, ctx.measureText("Improved Frigate").width, font*1.5)
             ctx.fillRect(hoffset[3], center-font + 3*voffset, ctx.measureText("Epheria Galleass").width, font*1.5)
             ctx.fillRect(hoffset[4], center-font + 1*voffset, ctx.measureText("Epheria Carrack").width, font*2.5)
             ctx.fillRect(hoffset[4], center-font + 5*voffset, ctx.measureText("Epheria Carrack").width, font*2.5)
-
+    
             ctx.fillStyle = "rgb(200,200,200)"
             ctx.textAlign = "left"
             ctx.fillText("Bartali Sailboat", 0, center)
-
+    
             ctx.fillText("Epheria Sailboat", hoffset[1], center - 3*voffset)
             ctx.fillText("Epheria Frigate", hoffset[1], center + 3*voffset)
-
+    
             ctx.fillText("Improved Sailboat", hoffset[2], center - 1*voffset)
             ctx.fillText("Improved Frigate", hoffset[2], center + 1*voffset)
-
+    
             ctx.fillText("Epheria Caravel", hoffset[3], center - 3*voffset)
             ctx.fillText("Epheria Galleass", hoffset[3], center + 3*voffset)
-
+    
             ctx.fillText("Epheria Carrack", hoffset[4], center - 5*voffset)
             ctx.fillText("(Advance)", hoffset[4], center - 5*voffset+font+2)
             ctx.fillText("Epheria Carrack", hoffset[4], center - 1*voffset)
@@ -369,17 +415,65 @@
             ctx.fillText("(Volante)", hoffset[4], center + 5*voffset+font+2)
             ctx.fillText("Epheria Carrack", hoffset[4], center + 1*voffset)
             ctx.fillText("(Valor)", hoffset[4], center + 1*voffset+font+2)
-
-
+    
         if (not check_storage('ship')) or get_storage('ship') not in ships:
             set_storage('ship', "Information")
-        b_reset = html.BUTTON("Reset Data")
+        b_reset = html.BUTTON(translate_static_text("Reset Data"))
         b_reset.bind("click", reset_data)
         doc["reset"] <= b_reset
         create_ship_list()
-
-
+    
+        # Function to switch language
+        def switch_language(ev):
+            global current_language
+            new_language = ev.target.value if hasattr(ev, 'target') else ev.value
+            if new_language != current_language:
+                current_language = new_language
+                set_language(current_language)
+                doc['language-selector'].value = current_language
+                create_ship_list()
+                
+                # Update static text elements
+                update_static_text()
+    
+                if get_storage('ship') == "Information":
+                    show_info()
+                else:
+                    update(None)
+    
+        # Function to update all static text elements
+        def update_static_text():
+            doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
+            doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
+            doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
+            doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
+            doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
+            doc['price-changes-text'].text = translate_static_text("price changes.")
+            doc['select-ship-text'].text = translate_static_text("Select a ship:")
+            doc['warning-text'].text = translate_static_text("(warning not reversible)")
+            doc['suggestions-text'].text = translate_static_text("Suggestions")
+            doc['bugs-text'].text = translate_static_text("Bugs")
+            doc['reset'].text = translate_static_text("Reset Data")
+            # doc['durability-text'].text = translate_static_text("Ship parts need to be 100% durability for upgrade recipe.")
+            # doc['recover-text'].text = translate_static_text("You will need to recover durability with Memory Fragments or the base item.")
+            # doc['additional-cost-text'].text = translate_static_text("This additional cost is not reflected in the Missing Parts list.")
+            doc['barter-unlock-text'].text = translate_static_text("Barters for [Level #] items are unlocked based on the total number of barters you have done,")
+            # doc['barter-appear-text'].text = translate_static_text("They can randomly appear during any reset once unlocked.")
+            doc['missing-parts-text'].text = translate_static_text("Missing parts (Automatically generated)")
+            doc['count-text'].text = translate_static_text("Count")
+            doc['name-text'].text = translate_static_text("Name")
+            doc['notes-text'].text = translate_static_text("Notes")
+            doc['ship-material-barter-text'].text = translate_static_text("Ship Material Barter")
+            doc['trade-item-barter-text'].text = translate_static_text("Trade Item Barter")
+            doc['tidal-black-stone-text'].text = translate_static_text("Tidal Black Stone upgrades can fail. The number shown is the minimum.")
+    
+        # Bind language selector to switch_language function
+        doc['language-selector'].bind('change', switch_language)
+    
+        # Set initial language
+        doc['language-selector'].value = current_language
+        switch_language(type('Event', (), {'value': current_language})())
+        update_static_text()
     </script>
-
 </body>
 </html>
