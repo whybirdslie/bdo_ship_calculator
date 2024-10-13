@@ -66,6 +66,8 @@ items_de = {
     "Cobalt Ingot": "Kobaltbarren",
     "Brilliant Rock Salt Ingot": "Brillanter Steinsalzbarren",
     "Seaweed Stalk": "Seetangstängel",
+    "Rock Salt Ingot": "Steinsalzbarren",
+    "Island Tree Coated Plywood": "Beschichtetes Inselbaum-Sperrholz",
     "Enhanced Island Tree Coated Plywood": "Verbessertes beschichtetes Inselbaum-Sperrholz",
     "Pure Pearl Crystal": "Reiner Perlenkristall",
     "Cox Pirates' Artifact (Parley Beginner)": "Cox-Piraten-Artefakt (Verhandlung Anfänger)",
@@ -114,11 +116,9 @@ info_de = {
 
 static_text_de = {
     "This site uses local storage to save your choices and requires Javascript to function properly.": "Diese Seite verwendet lokalen Speicher, um Ihre Auswahl zu speichern, und benötigt JavaScript, um ordnungsgemäß zu funktionieren.",
-    "Added overview keep lists for trade items and ship material barter.": "Übersichtslisten für Handelsgegenstände und Schiffsmaterialtausch hinzugefügt.",
-    "Added Panokseon. Fixed a couple recipes.": "Panokseon hinzugefügt. Einige Rezepte korrigiert.",
-    "Updated to reflect": "Aktualisiert, um die",
-    "Patch Notes - August 8, 2024": "Patchnotizen vom 8. August 2024",
-    "price changes.": "Preisänderungen widerzuspiegeln.",
+    "BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!": "BDO Ship Calculator hilft Dir, die Materialien zu tracken, die zur Herstellung Deines Schiffes erforderlich sind. Es zeigt Dir, wie weit Du in der Herstellung des Schiffes vorankommen bist, sodass Du Dich besser organisieren kannst. Mit diesem Tool wirst Du bald bereit sein, auf See zu segeln!",
+    "Special thanks to": "Danke an",
+    "for the first version of this calculator!": "für den Vorreiter dieses Trackers!",
     "Select a ship:": "Wähle ein Schiff:",
     "(warning not reversible)": "(Warnung: nicht rückgängig zu machen)",
     "Suggestions": "Vorschläge",
@@ -141,6 +141,7 @@ static_text_de = {
     "Count": "Anzahl",
     "Ship Material Barter": "Schiffsmaterial-Tauschhandel",
     "Trade Item Barter": "Handelsgegenstände-Tauschhandel",
+    "select level": "Stufe auswählen",
 }
 
 static_text_de.update({

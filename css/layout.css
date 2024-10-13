@@ -1,81 +1,101 @@
 body {
-	background-color: rgb(100,100,100);
-	background-image: url('../img/sbg.gif');
-	background-attachment: fixed;
-	font-family: Arial, Helvetica, sans-serif;
-	text-rendering: optimizeLegibility;
+    background-color: rgb(18, 18, 18);
+    background-image: url('../img/sbg.gif');
+    background-attachment: fixed;
+    font-family: 'Inter', Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    color: rgb(230, 230, 230);
+    line-height: 1.6;
 }
 
 section {
-	text-align: justify;
-	color: rgb(200, 200, 200);
-	background-color: rgba(40,40,40, .8);
-	padding:10px;
-	margin-left: auto;
-	margin-right: auto;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	border-style:solid;
-	border-width:1px;
-	border-color: rgb(75,75,75);
+    text-align: justify;
+    color: rgb(230, 230, 230);
+    background-color: rgba(30, 30, 30, 0.9);
+    padding: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+p {
+    max-width: 650px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 section.main {
-	z-index: 1;
-	max-width: 850px;
-	min-width: 850px;
-	width: 95%;
-	position: relative;
+    z-index: 1;
+    max-width: 850px;
+    min-width: 850px;
+    width: 95%;
+    position: relative;
 }
 
-/* Alternating list background Styles */
 tr {
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	padding:6px;
-	margin: 1px
-	line-height: 1em;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 4px;
+    line-height: 1.4em;
+    transition: background-color 0.3s ease;
 }
 
 tr:nth-child(even) {
-	background-color: rgb(35,35,35);
+    background-color: rgba(40, 40, 40, 0.6);
 }
 
 tr:nth-child(odd) {
-	background-color: rgb(45,45,45);
+    background-color: rgba(50, 50, 50, 0.6);
+}
+
+tr:hover {
+    background-color: rgba(60, 60, 60, 0.8);
 }
 
 select {
     text-align: right;
-    border: 1px solid rgb(0,0,0);
-    color: rgb(200, 200, 200);
-    background: rgba(0, 0, 0, .1);
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgb(230, 230, 230);
+    background: rgba(0, 0, 0, 0.2);
     appearance: none;
-    padding: .25em .5em;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+select:hover,
+select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 select.current {
-    width: 4em;
+    width: 5em;
 }
 
 option {
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(30, 30, 30);
 }
 
 .trade1 {
     color: rgb(200, 200, 200);
 }
+
 .trade2 {
     color: rgb(50, 200, 50);
 }
+
 .trade3 {
     color: rgb(75, 75, 200);
 }
+
 .trade4 {
     color: rgb(200, 200, 50);
 }
+
 .trade5 {
     color: rgb(200, 150, 50);
 }
@@ -84,38 +104,55 @@ option {
     display: flex;
     justify-content: space-between;
     margin-left: auto;
-    gap: 5px;
+    gap: 10px;
     width: 225px;
 }
 
 .sponsor_img {
     height: auto;
-    width: 100%
+    width: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.sponsor_img:hover {
+    opacity: 0.8;
 }
 
 #patreon_image {
-    flex:4.255;
+    flex: 4.255;
 }
 
 button {
-    padding: .25em .5em;
+    padding: 8px 16px;
     white-space: nowrap;
     width: fit-content;
-    border: 1px solid rgb(0,0,0);
-    background: rgba(0, 0, 0, .5);
-    color: rgb(200,200,200);
+    border: none;
+    background: rgba(60, 60, 60, 0.8);
+    color: rgb(230, 230, 230);
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: rgb(100,100,100);
+    background: rgb(80, 80, 80);
     color: rgb(255, 255, 255);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-   /* link legibility tweak */
 a:link {
-    color: rgb(98, 110, 250);
+    color: rgb(120, 130, 255);
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:visited {
-    color: rgb(137, 117, 162);
+    color: rgb(160, 140, 200);
+}
+
+a:hover {
+    color: rgb(160, 170, 255);
+    text-decoration: underline;
 }
