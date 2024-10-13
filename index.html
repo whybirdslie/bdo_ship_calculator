@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BDO Ship Upgrade Recipe Tracker</title>
+    <title>BDO Ship Calculator</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.8.0/brython.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.8.0/brython_stdlib.js"></script>
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
@@ -14,10 +14,9 @@
             <option value="en">English</option>
             <option value="de">Deutsch</option>
         </select>
-        <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span><span style="font-family: monospace;">.</span></p>
-        <p><span id="update-text">Added overview keep lists for trade items and ship material barter.</span></p>
-        <p><span id="panokseon-text">Added Panokseon. Fixed a couple recipes.</span></p>
-        <p><span id="patch-notes-text">Updated to reflect</span> <a href="https://www.naeu.playblackdesert.com/en-US/News/Detail?groupContentNo=7391&countryType=en-US" target="_blank"><span id="patch-notes-link-text">Patch Notes - August 8, 2024</span></a> <span id="price-changes-text">price changes.</span></p>
+        <p><span id="update-text">BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!</span></p>
+        <p><span id="thanks1-text">Special thanks to</span> <a href="https://github.com/xanthics" target="_blank"><span id="thanks-link-text">xanthics</span></a> <span id="thanks2-text">for the first version of this calculator!</span></p>
+        <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span></p>
         <br /><b><span id="select-ship-text">Select a ship:</span></b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
         <br /><span id="reset"></span>(<span id="warning-text">(warning not reversible)</span>)
@@ -28,7 +27,7 @@
                 <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text">Bugs</span></a>
             </p>
             <div id="sponsor">
-                <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/become_a_patron_button@2x.png" class="sponsor_img"></a></div>
+                <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/bmc-button.png" class="sponsor_img"></a></div>
             </div>
     </section>
     <script type="text/python">
@@ -82,6 +81,11 @@
             set_storage('ship', "Information")
             doc['ship'].value = get_storage('ship')
             update(None)
+
+        def get_translated_item_name(item_name, language):
+            if language == 'de':
+                return items_de.get(item_name, item_name)  # Use German translation if available, otherwise use original name
+            return item_name  # For English, just return the original name
     
         # Given a part name, returns a string with information about that part
         # returns empty string if no information
@@ -184,15 +188,16 @@
                 tb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for tbp in sorted(tbartitems):
                     translated_tbp = barters_de.get(tbp, tbp) if current_language == 'de' else tbp
-                    tb <= TR(TD(SPAN(translated_tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(tbartitems[tbp])))
+                    translated_notes = [get_translated_item_name(note, current_language) for note in tbartitems[tbp]]
+                    tb <= TR(TD(SPAN(translated_tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(translated_notes)))
                 doc['missing'] <= H4(translate_static_text("Keep for Trade Item Barter")) + tb
-    
+
             if sbartitems:
                 sb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for sbp in sorted(sbartitems):
                     translated_sbp = shipbarters_de.get(sbp, sbp) if current_language == 'de' else sbp
-                    sb <= TR(TD(SPAN(translated_sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(sbartitems[sbp])))
-    
+                    translated_notes = [get_translated_item_name(note, current_language) for note in sbartitems[sbp]]
+                    sb <= TR(TD(SPAN(translated_sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(translated_notes)))
                 doc['missing'] <= H4(translate_static_text("Keep for Ship Material Barter")) + sb
     
         # Update the stored value of an item
@@ -244,9 +249,9 @@
                     titletext.extend(["{}: {}".format(recipes[name][x], x) for x in recipes[name]])
     
                 if titletext:
-                    t <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(display_name) if '+' in part else display_name, title="\n".join(titletext))))
+                    t <= TR(TD(sel) + TD(val) + TD(SPAN("{} ({})".format(display_name, translate_static_text("select level")) if '+' in part else display_name, title="\n".join(titletext))))
                 else:
-                    t <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(display_name) if '+' in part else display_name))
+                    t <= TR(TD(sel) + TD(val) + TD("{} ({})".format(display_name, translate_static_text("select level")) if '+' in part else display_name))
     
             rec = ''
     
@@ -279,9 +284,9 @@
                         titletext.extend(["{}: {}".format(recipes[name][x], x) for x in recipes[name]])
     
                     if titletext:
-                        tn <= TR(TD(sel) + TD(val) + TD(SPAN("{} (select level)".format(display_name) if '+' in piece else display_name, title="\n".join(titletext))))
+                        tn <= TR(TD(sel) + TD(val) + TD(SPAN("{} ({})".format(display_name, translate_static_text("select level")) if '+' in piece else display_name, title="\n".join(titletext))))
                     else:
-                        tn <= TR(TD(sel) + TD(val) + TD("{} (select level)".format(display_name) if '+' in piece else display_name))
+                        tn <= TR(TD(sel) + TD(val) + TD("{} ({})".format(display_name, translate_static_text("select level")) if '+' in piece else display_name))
     
                 rec += H4("{} {}".format(recipe_extra[item], item)) + tn
     
@@ -444,11 +449,10 @@
         # Function to update all static text elements
         def update_static_text():
             doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
-            doc['update-text'].text = translate_static_text("Added overview keep lists for trade items and ship material barter.")
-            doc['panokseon-text'].text = translate_static_text("Added Panokseon. Fixed a couple recipes.")
-            doc['patch-notes-text'].text = translate_static_text("Updated to reflect")
-            doc['patch-notes-link-text'].text = translate_static_text("Patch Notes - August 8, 2024")
-            doc['price-changes-text'].text = translate_static_text("price changes.")
+            doc['update-text'].text = translate_static_text("BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!")
+            doc['thanks1-text'].text = translate_static_text("Special thanks to")
+            doc['thanks-link-text'].text = translate_static_text("xanthics")
+            doc['thanks2-text'].text = translate_static_text("for the first version of this calculator!")
             doc['select-ship-text'].text = translate_static_text("Select a ship:")
             doc['warning-text'].text = translate_static_text("(warning not reversible)")
             doc['suggestions-text'].text = translate_static_text("Suggestions")

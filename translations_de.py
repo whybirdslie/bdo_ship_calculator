@@ -66,6 +66,8 @@ items_de = {
     "Cobalt Ingot": "Kobaltbarren",
     "Brilliant Rock Salt Ingot": "Brillanter Steinsalzbarren",
     "Seaweed Stalk": "Seetangstängel",
+    "Rock Salt Ingot": "Steinsalzbarren",
+    "Island Tree Coated Plywood": "Beschichtetes Inselbaum-Sperrholz",
     "Enhanced Island Tree Coated Plywood": "Verbessertes beschichtetes Inselbaum-Sperrholz",
     "Pure Pearl Crystal": "Reiner Perlenkristall",
     "Cox Pirates' Artifact (Parley Beginner)": "Cox-Piraten-Artefakt (Verhandlung Anfänger)",
@@ -114,11 +116,9 @@ info_de = {
 
 static_text_de = {
     "This site uses local storage to save your choices and requires Javascript to function properly.": "Diese Seite verwendet lokalen Speicher, um Ihre Auswahl zu speichern, und benötigt JavaScript, um ordnungsgemäß zu funktionieren.",
-    "Added overview keep lists for trade items and ship material barter.": "Übersichtslisten für Handelsgegenstände und Schiffsmaterialtausch hinzugefügt.",
-    "Added Panokseon. Fixed a couple recipes.": "Panokseon hinzugefügt. Einige Rezepte korrigiert.",
-    "Updated to reflect": "Aktualisiert, um die",
-    "Patch Notes - August 8, 2024": "Patchnotizen vom 8. August 2024",
-    "price changes.": "Preisänderungen widerzuspiegeln.",
+    "BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!": "BDO Ship Calculator hilft Dir, die Materialien zu tracken, die zur Herstellung Deines Schiffes erforderlich sind. Es zeigt Dir, wie weit Du in der Herstellung des Schiffes vorankommen bist, sodass Du Dich besser organisieren kannst. Mit diesem Tool wirst Du bald bereit sein, auf See zu segeln!",
+    "Special thanks to": "Danke an",
+    "for the first version of this calculator!": "für den Vorreiter dieses Trackers!",
     "Select a ship:": "Wähle ein Schiff:",
     "(warning not reversible)": "(Warnung: nicht rückgängig zu machen)",
     "Suggestions": "Vorschläge",
@@ -141,7 +141,7 @@ static_text_de = {
     "Count": "Anzahl",
     "Ship Material Barter": "Schiffsmaterial-Tauschhandel",
     "Trade Item Barter": "Handelsgegenstände-Tauschhandel",
-    "Tidal Black Stone upgrades can fail. The number shown is the minimum.": "Gezeiten-Schwarzstein-Upgrades können fehlschlagen. Die angezeigte Zahl ist das Minimum.",
+    "select level": "Stufe auswählen",
 }
 
 static_text_de.update({
@@ -149,6 +149,8 @@ static_text_de.update({
     "Exchange": "Tausch",
     "Recipe": "Rezept",
     "per": "pro",
+    "Tidal Black Stone upgrades can fail. The number shown is the minimum.": "Gezeiten-Schwarzstein-Upgrades können fehlschlagen. Die angezeigte Zahl ist das Minimum.",
+    "Recipe Subparts": "Rezept-Unterteile",
 })
 
 recipes_de = {
@@ -326,8 +328,6 @@ shipbarters_de = {
     "Make at Epheria Ship Parts Shop": "Herstellung im Epheria-Schiffsteile-Laden",
     "Buy from Falasi.": "Bei Falasi kaufen.",
     "mil.": "Mio.",
-    "any level 2 barter good.": "beliebigem Bartergegenstand der Stufe 2",
-    "any level 3 barter good.": "beliebigem Bartergegenstand der Stufe 3",
 
     # Barter item translations
     "[Level 2] Balanced Stone Pagoda": "[Stufe 2] Ausbalancierte Steinpagode",
@@ -487,8 +487,8 @@ barters_de = {
     "Tidal Black Stone": "Gezeiten-Schwarzstein",
     "Tide-Dyed Standardized Timber Square": "Gezeitengefärbtes standardisiertes Holzquadrat",
     "Deep Tide-Dyed Standardized Timber Square": "Tief gezeitengefärbtes standardisiertes Holzquadrat",
-    "any level 2 barter good": "beliebiger Bartergegenstand der Stufe 2",
-    "any level 3 barter good": "beliebiger Bartergegenstand der Stufe 3",
+    "any level 2 barter good.": "Bartergegenstand der Stufe 2.",
+    "any level 3 barter good.": "Bartergegenstand der Stufe 3.",
     "[Level 3] Pirates' Supply Box": "[Stufe 3] Piraten-Vorratskiste",
     "[Level 3] Weasel Leather Coat": "[Stufe 3] Wiesel-Ledermantel",
     "[Level 3] Lopters Fishnet": "[Stufe 3] Lopters Fischernetz",
@@ -502,6 +502,12 @@ barters_de = {
     "[Level 5] 102 Year Old Golden Herb": "[Stufe 5] 102 Jahre altes goldenes Kraut",
     "[Level 5] Taxidermied White Caterpillar": "[Stufe 5] Präparierte weiße Raupe",
     "[Level 2] Pirate Ship Mast": "[Stufe 2] Piratenschiff-Mast",
+    "[Level 2] Balanced Stone Pagoda": "[Stufe 2] Ausbalancierte Steinpagode",
+    "[Level 2] Conch Shell Ornament": "[Stufe 2] Muschelschalen-Ornament",
+    "[Level 2] Filtered Drinking Water": "[Stufe 2] Gefiltertes Trinkwasser",
+    "[Level 2] Narvo Sea Cucumber": "[Stufe 2] Narvo-Seegurke",
+    "[Level 2] Pirate Gold Coin": "[Stufe 2] Piraten-Goldmünze",
+    "[Level 2] Urchin Spine": "[Stufe 2] Seeigel-Stachel",
     "[Level 2] Supreme Oyster Box": "[Stufe 2] Erstklassige Austernbox",
     "[Level 2] Sea Survival Kit": "[Stufe 2] Überlebensset für die See",
     "[Level 2] Opulent Marble": "[Stufe 2] Opulenter Marmor",
