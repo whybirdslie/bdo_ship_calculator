@@ -1,1 +1,1 @@
-Hosted at https://xanthics.github.io/bdo_ship_upgrade/
+Hosted at https://whybirdslie.github.io/bdo_ship_calculator/
