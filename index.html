@@ -14,7 +14,7 @@
             <option value="en">English</option>
             <option value="de">Deutsch</option>
         </select>
-        <p><span id="update-text">BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!</span></p>
+        <p><span id="update-text">BDO Ship Calculator helps you keep track of your materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!</span></p>
         <p><span id="thanks1-text">Special thanks to</span> <a href="https://github.com/xanthics" target="_blank"><span id="thanks-link-text">xanthics</span></a> <span id="thanks2-text">for the first version of this calculator!</span></p>
         <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span></p>
         <br /><b><span id="select-ship-text">Select a ship:</span></b><span id="shiplist"></span><br /><br />
@@ -27,7 +27,7 @@
                 <a href="https://github.com/xanthics/bdo_ship_upgrade/issues" target="_blank"><span id="bugs-text">Bugs</span></a>
             </p>
             <div id="sponsor">
-                <div id="patreon_image"><a href="https://www.patreon.com/xanthics"><img alt="Become a Patron!" src="img/bmc-button.png" class="sponsor_img"></a></div>
+                <div id="patreon_image"><a href="https://buymeacoffee.com/whybirdslie"><img alt="Buy me a coffee!" src="img/bmc-button.png" class="sponsor_img"></a></div>
             </div>
     </section>
     <script type="text/python">
@@ -449,7 +449,7 @@
         # Function to update all static text elements
         def update_static_text():
             doc['storage-text'].text = translate_static_text("This site uses local storage to save your choices and requires Javascript to function properly.")
-            doc['update-text'].text = translate_static_text("BDO Ship Calculator helps you keep track of the materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!")
+            doc['update-text'].text = translate_static_text("BDO Ship Calculator helps you keep track of your materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!")
             doc['thanks1-text'].text = translate_static_text("Special thanks to")
             doc['thanks-link-text'].text = translate_static_text("xanthics")
             doc['thanks2-text'].text = translate_static_text("for the first version of this calculator!")
