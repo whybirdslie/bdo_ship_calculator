@@ -156,3 +156,13 @@ a:hover {
     color: rgb(160, 170, 255);
     text-decoration: underline;
 }
+
+#bdoship {
+    max-width: 650px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-left: 0;
+    margin-right: auto;
+}
