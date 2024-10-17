@@ -133,7 +133,7 @@ info_de = {
 }
 
 static_text_de = {
-    "This site uses local storage to save your choices and requires Javascript to function properly.": "Diese Seite verwendet lokalen Speicher, um Ihre Auswahl zu speichern, und benötigt JavaScript, um ordnungsgemäß zu funktionieren.",
+    "This site uses local storage to save your choices and requires Javascript to function properly.": "Diese Seite verwendet lokalen Speicher, um Deine Auswahl zu speichern, und benötigt JavaScript, um ordnungsgemäß zu funktionieren.",
     "BDO Ship Calculator helps you keep track of your materials needed to craft your ship. It shows you how far along you are in the crafting process, making it easier to stay organized. With this tool, you'll be ready to set sail in no time!": "BDO Ship Calculator hilft Dir, Deine Materialien zu tracken, die zur Herstellung Deines Schiffes erforderlich sind. Es zeigt Dir, wie weit Du in der Herstellung des Schiffes vorankommen bist, sodass Du Dich besser organisieren kannst. Mit diesem Tool wirst Du bald bereit sein, in See zu stechen!",
     "Special thanks to": "Danke an",
     "for the first version of this calculator!": "für den Vorreiter dieses Trackers!",
