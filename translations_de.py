@@ -99,7 +99,7 @@ info_de = {
     "Barter items that you can trade for ship parts unlock as you finish more trades. You can always trade t1 barter items for verdant stone coupon though.": "Tauschgegenstände, die Du gegen Schiffsteile eintauschen kannst, werden freigeschaltet, wenn Du mehr Handel abschließt. Du kannst jedoch immer T1-Tauschgegenstände gegen Grünstein-Coupons eintauschen.",
     "Ship parts used for upgrade need to be full durability.": "Für das Upgrade verwendete Schiffsteile müssen volle Haltbarkeit haben.",
     "All sea monsters can drop parts for upgrading ships. There is no list of which drops are where yet. (Nov-6)": "Alle Seeungeheuer können Teile für das Upgrade von Schiffen fallen lassen. Es gibt noch keine Liste, welche Gegenstände wo fallen gelassen werden. (6. November)",
-    "Old Moon Guild daily quests are mutually exclusive(pick 1). EG Nineshark and Young Sea Monster Hunter.": "Die täglichen Quests der Altmond-Gilde schließen sich gegenseitig aus (wählen Sie 1). Z.B. Neunhai und Junger Seeungeheuer-Jäger.",
+    "Old Moon Guild daily quests are mutually exclusive(pick 1). EG Nineshark and Young Sea Monster Hunter.": "Die täglichen Quests der Altmond-Gilde schließen sich gegenseitig aus (wähle 1). Z.B. Neunhai und Junger Seeungeheuer-Jäger.",
     "Upgrade Paths": "Upgrade-Pfade",
     "Base Ship Stats": "Basis-Schiffsstatistiken",
     "Stat": "Statistik",
@@ -129,6 +129,7 @@ info_de = {
     "slots": "Plätze",
     "per side(player)": "pro Seite (Spieler)",
     "per side(captain)": "pro Seite (Kapitän)",
+    "Reset Data": "Daten zurücksetzen",
 }
 
 static_text_de = {
@@ -137,7 +138,7 @@ static_text_de = {
     "Special thanks to": "Danke an",
     "for the first version of this calculator!": "für den Vorreiter dieses Trackers!",
     "Select a ship:": "Wähle ein Schiff:",
-    "(warning not reversible)": "(Warnung: nicht rückgängig zu machen)",
+    "warning not reversible": "Warnung: nicht rückgängig zu machen",
     "Suggestions": "Vorschläge",
     "Bugs": "Fehler",
     "Reset Data": "Daten zurücksetzen",
@@ -150,7 +151,7 @@ static_text_de = {
     "Keep for Trade Item Barter": "Für Handelsgegenstände-Tausch behalten",
     "Keep for Ship Material Barter": "Für Schiffsmaterial-Tausch behalten",
     "Ship parts need to be 100% durability for upgrade recipe.": "Schiffsteile müssen für das Upgrade-Rezept 100% Haltbarkeit haben.",
-    "You will need to recover durability with Memory Fragments or the base item.": "Sie müssen die Haltbarkeit mit Erinnerungsfragmenten oder dem Basisgegenstand wiederherstellen.",
+    "You will need to recover durability with Memory Fragments or the base item.": "Die Haltbarkeit muss mit Erinnerungsfragmenten oder dem Basisgegenstand wiederhergestellt werden.",
     "This additional cost is not reflected in the Missing Parts list.": "Diese zusätzlichen Kosten werden in der Liste der fehlenden Teile nicht berücksichtigt.",
     "Barters for [Level #] items are unlocked based on the total number of barters you have done,": "Tauschhandel für [Stufe #] Gegenstände werden basierend auf der Gesamtzahl der von Ihnen durchgeführten Tauschhandel freigeschaltet,",
     "They can randomly appear during any reset once unlocked.": "Sie können nach der Freischaltung bei jedem Reset zufällig erscheinen.",
@@ -165,6 +166,7 @@ static_text_de = {
     "per": "pro",
     "Tidal Black Stone upgrades can fail. The number shown is the minimum.": "Gezeiten-Schwarzstein-Upgrades können fehlschlagen. Die angezeigte Zahl ist das Minimum.",
     "Recipe Subparts": "Rezept-Unterteile",
+    "Reset Data": "Daten zurücksetzen",
 }
 
 recipes_de = {
@@ -333,3 +335,20 @@ barters_de = {
     "[Level 5] Taxidermied Morpho Butterfly": "[Stufe 5] Präparierter Morpho-Schmetterling",
     "[Level 5] Taxidermied White Caterpillar": "[Stufe 5] Präparierte weiße Raupe",
 }
+
+barters_de.update({
+    "[Level 2] Balanced Stone Pagoda": "[Stufe 2] Ausbalancierte Steinpagode",
+    "[Level 2] Big Stone Slab": "[Stufe 2] Große Steinplatte",
+    "[Level 2] Filtered Drinking Water": "[Stufe 2] Gefiltertes Trinkwasser",
+    "[Level 2] Islanders' Lunchbox": "[Stufe 2] Lunchbox der Inselbewohner",
+    "[Level 2] Opulent Marble": "[Stufe 2] Opulenter Marmor",
+    "[Level 2] Supreme Oyster Box": "[Stufe 2] Erstklassige Austernbox",
+    "[Level 2] Urchin Spine": "[Stufe 2] Seeigel-Stachel",
+    "[Level 3] Ancient Orders": "[Stufe 3] Alte Befehle",
+    "[Level 3] Gooey Monster Blood": "[Stufe 3] Klebriges Monsterblut",
+    "[Level 3] Lopters Fishnet": "[Stufe 3] Lopters Fischernetz",
+    "[Level 3] Pirates' Supply Box": "[Stufe 3] Piraten-Vorratskiste",
+    "[Level 3] Rare Herb Pile": "[Stufe 3] Seltener Kräuterhaufen",
+    "[Level 3] Round Knife": "[Stufe 3] Rundmesser",
+    # ... (add any missing translations)
+})

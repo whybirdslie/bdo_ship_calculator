@@ -19,7 +19,7 @@
         <p><span id="storage-text">This site uses local storage to save your choices and requires Javascript to function properly</span></p>
         <br /><b><span id="select-ship-text">Select a ship:</span></b><span id="shiplist"></span><br /><br />
         <span id="shipparts"></span>
-        <br /><span id="reset"></span>(<span id="warning-text">(warning not reversible)</span>)
+        <br /><button id="reset-button">Reset Data</button> (<span id="warning-text">(warning not reversible)</span>)
         <br/><br/>
             <p>
                 <a href="https://github.com/xanthics/bdo_ship_upgrade/discussions" target="_blank"><span id="suggestions-text">Suggestions</span></a>
@@ -74,14 +74,14 @@
     
         # Reset that only deletes values for this site
         def reset_data(ev):
-            for key in storage.keys():
+            for key in list(storage.keys()):
                 if key.startswith(storage_key):
                     del storage[key]
     
             set_storage('ship', "Information")
             doc['ship'].value = get_storage('ship')
             update(None)
-
+    
         def get_translated_item_name(item_name, language):
             if language == 'de':
                 return items_de.get(item_name, item_name)  # Use German translation if available, otherwise use original name
@@ -191,11 +191,11 @@
                     translated_notes = [get_translated_item_name(note, current_language) for note in tbartitems[tbp]]
                     tb <= TR(TD(SPAN(translated_tbp, Class="trade{}".format(tbp[tbp.find(']') - 1])))+TD("<br />".join(translated_notes)))
                 doc['missing'] <= H4(translate_static_text("Keep for Trade Item Barter")) + tb
-
+    
             if sbartitems:
                 sb = TABLE(TR(TH(translate_static_text("Name"))+TH(translate_static_text("Notes"))))
                 for sbp in sorted(sbartitems):
-                    translated_sbp = shipbarters_de.get(sbp, sbp) if current_language == 'de' else sbp
+                    translated_sbp = barters_de.get(sbp, sbp) if current_language == 'de' else sbp
                     translated_notes = [get_translated_item_name(note, current_language) for note in sbartitems[sbp]]
                     sb <= TR(TD(SPAN(translated_sbp, Class="trade{}".format(sbp[sbp.find(']') - 1])))+TD("<br />".join(translated_notes)))
                 doc['missing'] <= H4(translate_static_text("Keep for Ship Material Barter")) + sb
@@ -421,11 +421,18 @@
             ctx.fillText("Epheria Carrack", hoffset[4], center + 1*voffset)
             ctx.fillText("(Valor)", hoffset[4], center + 1*voffset+font+2)
     
+        # Add this function to create and bind the reset button
+        def create_reset_button():
+            b_reset = doc['reset-button']
+            b_reset.text = translate_static_text("Reset Data")
+            b_reset.bind("click", reset_data)
+    
+        # Make sure to call this function when initializing the page and when switching languages
+        create_reset_button()
+    
         if (not check_storage('ship')) or get_storage('ship') not in ships:
             set_storage('ship', "Information")
-        b_reset = html.BUTTON(translate_static_text("Reset Data"))
-        b_reset.bind("click", reset_data)
-        doc["reset"] <= b_reset
+    
         create_ship_list()
     
         # Function to switch language
@@ -440,7 +447,10 @@
                 
                 # Update static text elements
                 update_static_text()
-    
+                
+                # Update the reset button text
+                create_reset_button()
+
                 if get_storage('ship') == "Information":
                     show_info()
                 else:
@@ -454,7 +464,7 @@
             doc['thanks-link-text'].text = translate_static_text("xanthics")
             doc['thanks2-text'].text = translate_static_text("for the first version of this calculator!")
             doc['select-ship-text'].text = translate_static_text("Select a ship:")
-            doc['warning-text'].text = translate_static_text("(warning not reversible)")
+            doc['warning-text'].text = translate_static_text("warning not reversible")
             doc['suggestions-text'].text = translate_static_text("Suggestions")
             doc['bugs-text'].text = translate_static_text("Bugs")
             doc['reset'].text = translate_static_text("Reset Data")
